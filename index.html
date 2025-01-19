@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        .container {
+            background-color: blue;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        .input {
+            background-color: white;
+            padding: 50px 100px;
+            text-align: center;
+            border: 5px solid black;
+            border-radius: 20px;
+        }
+        p {
+            font-size: 200%;
+        }
+        input {
+            height: 50px;
+            width: 250px;
+            border-radius: 20px;
+        }
+        button {
+            background-color: blue;
+            height: 50px;
+            width: 250px;
+            border-radius: 20px;
+            color: white;
+            font-size: 1.1em;
+        }
+        button:hover {
+            transform: scale(1.05);
+            background-color: white;
+            color: blue;
+            border: 2px solid blue;
+        }
+        .img {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="input">
+            <p>QR Code Generator</p>
+            <input type="text" id="inputtext" placeholder="Enter URL or Text">
+            <button onclick="generate()">Generate QR</button>
+            <div class="qr">
+                <div class="img">
+                    <img src="" id="imgqr" alt="Your QR Code will appear here">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function generate() {
+            const inputText = document.getElementById("inputtext").value.trim();
+            if (!inputText) {
+                alert("Please enter a URL or text to generate a QR code.");
+                return; 
+            }
+
+            // Use QRme API to generate the QR code
+            const imgQR = document.getElementById("imgqr");
+            const apiUrl = https://qrme.com/api/v1/generate?data=${encodeURIComponent(inputText)}&size=400x400;
+
+            // Update the image source with the QRme API URL
+            imgQR.src = apiUrl;
+            imgQR.alt = "Generated QR Code";
+        }
+    </script>
+</body>
+</html>
