@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Profile Viewer</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .input {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            width: 300px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .profile {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="input">
+            <h2>GitHub Profile Viewer</h2>
+            <input type="text" id="username" placeholder="Enter GitHub username">
+            <button onclick="fetchProfile()">View Profile</button>
+        </div>
+        <div class="profile" id="profile" style="display: none;">
+            <img id="avatar" src="" alt="Avatar">
+            <h3 id="name"></h3>
+            <p id="bio"></p>
+            <a id="profileLink" href="#" target="_blank">View on GitHub</a>
+        </div>
+    </div>
+    <script>
+        async function fetchProfile() {
+            const username = document.getElementById('username').value.trim();
+            if (!username) {
+                alert('Please enter a GitHub username.');
+                return;
+            }
+
+            const profileDiv = document.getElementById('profile');
+            const avatar = document.getElementById('avatar');
+            const name = document.getElementById('name');
+            const bio = document.getElementById('bio');
+            const profileLink = document.getElementById('profileLink');
+
+            try {
+                const response = await fetch(https://api.github.com/users/${username});
+                if (!response.ok) {
+                    throw new Error('User not found');
+                }
+
+                const data = await response.json();
+
+                avatar.src = data.avatar_url;
+                name.textContent = data.name || 'No Name Provided';
+                bio.textContent = data.bio || 'No Bio Available';
+                profileLink.href = data.html_url;
+                profileLink.textContent = 'View on GitHub';
+
+                profileDiv.style.display = 'block';
+            } catch (error) {
+                alert('Error fetching profile: ' + error.message);
+                profileDiv.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
